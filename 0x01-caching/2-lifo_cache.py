@@ -1,22 +1,21 @@
 #!/usr/bin/env python3
 """
-1-fifo_cache.py - Provides one class:
-    FIFOCache(BaseCaching)
+2-lifo_cache.py - Provides one class:
+    LIFOCache(BaseCaching)
 """
 
 
 BaseCaching = __import__('base_caching').BaseCaching
 
 
-class FIFOCache(BaseCaching):
+class LIFOCache(BaseCaching):
     """
-    FIFOCache implements a caching system of size MAX_ITEMS
+    LIFOCache implements a caching system of size MAX_ITEMS
      that removes the oldest inserted data
     """
     def __init__(self):
         """Initialize the age of data
         """
-        self.first_key_index = 0
         self.keys = []
         super().__init__()
 
@@ -27,12 +26,15 @@ class FIFOCache(BaseCaching):
             return
         if self.cache_data.get(key, None) is None:
             if len(self.keys) >= self.MAX_ITEMS:
-                print("DISCARD: {}".format(self.keys[self.first_key_index]))
-                self.cache_data.pop(self.keys[self.first_key_index])
-                self.keys[self.first_key_index] = key
+                print("DISCARD: {}".format(self.keys[self.MAX_ITEMS - 1]))
+                self.cache_data.pop(self.keys[self.MAX_ITEMS - 1])
+                self.keys[self.MAX_ITEMS - 1] = key
             else:
                 self.keys.append(key)
-            self.first_key_index = (self.first_key_index + 1) % self.MAX_ITEMS
+        else:
+            # Update edits to become the new last in
+            self.keys.remove(key)
+            self.keys.append(key)
         self.cache_data.update({key: item})
 
     def get(self, key):
@@ -42,7 +44,7 @@ class FIFOCache(BaseCaching):
 
 
 if __name__ == "__main__":
-    my_cache = FIFOCache()
+    my_cache = LIFOCache()
     my_cache.put("A", "Hello")
     my_cache.put("B", "World")
     my_cache.put("C", "Holberton")
@@ -53,4 +55,6 @@ if __name__ == "__main__":
     my_cache.put("C", "Street")
     my_cache.print_cache()
     my_cache.put("F", "Mission")
+    my_cache.print_cache()
+    my_cache.put("G", "San Francisco")
     my_cache.print_cache()

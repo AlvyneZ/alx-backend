@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 0-basic_cache.py - Provides one class:
-    Basic Cache()
+    BasicCache(BaseCaching)
 """
 
 
