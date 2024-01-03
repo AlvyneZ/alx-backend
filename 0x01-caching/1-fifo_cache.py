@@ -31,6 +31,7 @@ class FIFOCache(BaseCaching):
             return
         if self.cache_data.get(key, None) is None:
             if self.data_count >= self.MAX_ITEMS:
+                print("DISCARD: {}".format(self.keys[self.first_key_index]))
                 self.cache_data.pop(self.keys[self.first_key_index])
                 self.keys[self.first_key_index] = key
             else:
