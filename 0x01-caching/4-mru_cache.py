@@ -1,17 +1,17 @@
 #!/usr/bin/env python3
 """
-3-lru_cache.py - Provides one class:
-    LRUCache(BaseCaching)
+4-mru_cache.py - Provides one class:
+    MRUCache(BaseCaching)
 """
 
 
 BaseCaching = __import__('base_caching').BaseCaching
 
 
-class LRUCache(BaseCaching):
+class MRUCache(BaseCaching):
     """
-    LRUCache implements a caching system of size MAX_ITEMS
-     that removes the least recently used (accessed/inserted)
+    MRUCache implements a caching system of size MAX_ITEMS
+     that removes the most recently used (accessed/inserted)
      data
     """
     def __init__(self):
@@ -27,10 +27,11 @@ class LRUCache(BaseCaching):
             return
         if self.cache_data.get(key, None) is None:
             if len(self.keys) >= self.MAX_ITEMS:
-                print("DISCARD: {}".format(self.keys[0]))
-                self.cache_data.pop(self.keys[0])
-                self.keys.pop(0)
-            self.keys.append(key)
+                print("DISCARD: {}".format(self.keys[self.MAX_ITEMS - 1]))
+                self.cache_data.pop(self.keys[self.MAX_ITEMS - 1])
+                self.keys[self.MAX_ITEMS - 1] = key
+            else:
+                self.keys.append(key)
         else:
             # Update edits to become the new most recent
             self.keys.remove(key)
@@ -49,7 +50,7 @@ class LRUCache(BaseCaching):
 
 
 if __name__ == "__main__":
-    my_cache = LRUCache()
+    my_cache = MRUCache()
     my_cache.put("A", "Hello")
     my_cache.put("B", "World")
     my_cache.put("C", "Holberton")
