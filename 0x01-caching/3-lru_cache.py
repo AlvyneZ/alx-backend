@@ -47,7 +47,6 @@ class LRUCache(BaseCaching):
         return data
 
 
-
 if __name__ == "__main__":
     my_cache = LRUCache()
     my_cache.put("A", "Hello")
