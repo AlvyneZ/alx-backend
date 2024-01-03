@@ -33,6 +33,8 @@ class LFUCache(BaseCaching):
         super().__init__()
 
     def __inc_freq(self, key):
+        """ Increments the frequency after an access
+        """
         idx = self.freq_idx.get(key, None)
         if idx is None:
             return
