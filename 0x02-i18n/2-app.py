@@ -16,9 +16,10 @@ class Config:
 
 app: Flask = Flask(__name__)
 app.config.from_object(Config)
-babel = Babel(app)
+babel: Babel = Babel(app)
 
 
+@babel.localeselector
 def get_locale() -> str:
     """Gets the best match for supported languages
 
@@ -35,7 +36,7 @@ def landing() -> str:
     Returns:
         str: landing page
     """
-    return render_template('0-index.html')
+    return render_template('2-index.html')
 
 
 if __name__ == '__main__':
