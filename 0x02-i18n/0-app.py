@@ -11,6 +11,11 @@ app: Flask = Flask(__name__)
 
 @app.route('/')
 def landing() -> str:
+    """Outputs the landing page of the simple site
+
+    Returns:
+        str: landing page
+    """
     return render_template('0-index.html')
 
 
