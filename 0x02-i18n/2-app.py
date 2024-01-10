@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-0-app.py - Starts a simple flask app
+2-app.py - Starts a simple flask app
 """
 from flask_babel import Babel
 from flask import Flask, render_template, request
